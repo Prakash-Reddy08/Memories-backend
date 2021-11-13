@@ -2,7 +2,10 @@ const router = require('express').Router();
 const passport = require('passport');
 
 router.get('/logout', (req, res) => {
-    req.logout();
+    if (req.user) {
+        req.logout();
+        res.send("done");
+    }
 })
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
@@ -15,7 +18,6 @@ router.get(
         successRedirect: "http://localhost:3000/login/success",
     }),
     (req, res) => {
-        console.log("User: ", req.user);
         res.send("Thank you for signing in!");
     }
 );
