@@ -13,7 +13,6 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(helmet())
-app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieSession({

@@ -10,14 +10,12 @@ const getPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
-    const { creator, title, message, tags, creatorID, creatorName } = req.body;
+    const { creator, title, message, tags, creatorID, desc, creatorName, image } = req.body;
     let newTag = tags.toString().split(',');
-    const image = req?.file?.path;
-    if (req.invalidFile) {
-        res.status(400).json('image must be jpeg or png')
-    }
+    const time = Date.now();
+    console.log(time);
     try {
-        const newPost = await new posts({ creator, title, message, tags: newTag, image, creatorID, creatorName });
+        const newPost = await new posts({ creator, title, message, time, tags: newTag, image, creatorID, desc, creatorName });
         await newPost.save();
         res.status(200).json(newPost);
     } catch (error) {
@@ -50,9 +48,6 @@ const deletePost = async (req, res) => {
     const id = req.params.id;
     try {
         const post = await posts.findByIdAndDelete({ _id: id });
-        if (post?.image) {
-            fs.unlinkSync("./" + post.image);
-        }
         if (!post) {
             return res.status(400).json({ message: "no post found" })
         }

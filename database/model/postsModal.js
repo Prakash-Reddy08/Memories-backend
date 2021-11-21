@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
     creatorID: String,
     tags: [String],
     image: String,
+    time: Number,
     likeCount: {
         type: Number,
         default: 0
