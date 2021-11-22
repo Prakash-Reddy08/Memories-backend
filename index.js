@@ -30,6 +30,6 @@ app.get('/', (req, res) => {
 })
 app.use('/api', api);
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(5000, () => {
     console.log('http://localhost:5000')
 })
