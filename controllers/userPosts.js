@@ -11,7 +11,7 @@ const getPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
     const { creator, title, message, tags, creatorID, desc, creatorName, image } = req.body;
-    let newTag = tags.toString().split(',');
+    let newTag = tags.toString().split(',').slice(0, 3);
     const time = Date.now();
     console.log(time);
     try {
@@ -43,6 +43,18 @@ const findByCreator = async (req, res) => {
     }
 }
 
+const updateLikes = async (req, res) => {
+    const postId = req.params.id;
+    const likes = req.body;
+    console.log(likes);
+    try {
+        const updateLikes = await posts.findByIdAndUpdate(postId, { likeCount: likes }, { new: true });
+        res.status(200).json(updateLikes);
+    } catch (error) {
+        res.status(400).json('error')
+    }
+}
+
 
 const deletePost = async (req, res) => {
     const id = req.params.id;
@@ -51,11 +63,11 @@ const deletePost = async (req, res) => {
         if (!post) {
             return res.status(400).json({ message: "no post found" })
         }
-        res.status(200).json("Post deleted");
+        res.status(200).json(post);
     } catch (error) {
         console.log(error);
         res.status(500).json(error)
     }
 }
 
-module.exports = { getPosts, createPost, findByCreator, getSinglePost, deletePost }
+module.exports = { updateLikes, getPosts, createPost, findByCreator, getSinglePost, deletePost }
