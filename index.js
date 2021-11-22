@@ -25,7 +25,9 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 
 connectDB();
-
+app.get('/', (req, res) => {
+    res.send("hello")
+})
 app.use('/api', api);
 
 app.listen(process.env.PORT || 5000, () => {
