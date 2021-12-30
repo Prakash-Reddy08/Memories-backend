@@ -3,7 +3,7 @@ const passport = require("passport");
 require('dotenv').config()
 const User = require("../database/model/UserModel");
 
-const GOOGLE_CALLBACK_URL = "http://localhost:5000/api/auth/google/callback";
+const GOOGLE_CALLBACK_URL = `${process.env.BACKEND_ENDPOINT}/auth/google/callback`;
 
 passport.use(
     new GoogleStrategy(

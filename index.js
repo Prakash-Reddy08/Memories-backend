@@ -21,7 +21,7 @@ app.use(cookieSession({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: `${process.env.FROUNTEND_ENDPOINT || "http://localhost:3000"}`, credentials: true }));
 
 
 connectDB();
@@ -31,5 +31,5 @@ app.get('/', (req, res) => {
 app.use('/api', api);
 
 app.listen(process.env.PORT || 5000, () => {
-    console.log('http://localhost:5000')
+    console.log('Server started')
 })
